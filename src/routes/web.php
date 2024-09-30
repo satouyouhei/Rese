@@ -19,10 +19,12 @@ use App\Http\Controllers\MyPageController;
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class,'destroy']);
     Route::get('/mypage',[MyPageController::class,'index']);
-    Route::post('/mypage/{shop}',[MyPageController::class,'store'])->name('favorite.add');
-    Route::post('/mypage/{shop}',[MyPageController::class,'destroy'])->name('favorite.delete');
+
+    Route::post('/mypage/add/{shop}',[MyPageController::class,'store'])->name('favorite.add');
+    Route::post('/mypage/delete/{shop}',[MyPageController::class,'destroy'])->name('favorite.delete');
 
 });
+
 
 
 Route::get('/',[ShopController::class, 'getIndex']);
