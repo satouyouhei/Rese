@@ -37,7 +37,6 @@ class MyPageController extends Controller
 
     public function store(Shop $shop)
     {
-        dd($shop);
         $favorite = new Favorite();
         $favorite->shop_id = $shop->id;
         $favorite->user_id = Auth::user()->id;
@@ -46,12 +45,17 @@ class MyPageController extends Controller
         return back();
     }
 
-    public function destroy(Shop $shop)
+    public function favoriteDestroy(Shop $shop)
     {
-        dd($shop);
         Auth::user()->favorites()->where('shop_id',$shop->id)->delete();
 
-        return back();
+        return redirect('/mypage');
+    }
+
+    public function reservationDestroy(Reservation $reservation)
+    {   
+        $reservation->delete();
+        return redirect('/mypage');
     }
 
     private function getReservationsByStatus()

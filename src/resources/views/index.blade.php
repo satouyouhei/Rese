@@ -104,7 +104,7 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="shop__button-favorite-btn" title="お気に入り削除">
-                                        <img class="favorite__btn-image" src="{{ asset('images/heart.svg') }}">
+                                        <img class="favorite__btn-image" src="{{ asset('images/heart-fill.svg') }}">
                                     </button>
                                 </form>
                             @else

@@ -24,7 +24,7 @@
                                         <img src="{{ asset('images/pencil.svg') }}" alt="予約変更" class="form__button-img">
                                     </button>
                                 </form>
-                                <form action="" method="post"  class="header__form">
+                                <form action="{{route('reservation.delete',$reservation)}}" method="post"  class="header__form">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="form__button--cancel" onclick="return confirmCancel()" title="予約キャンセル">
@@ -71,11 +71,11 @@
                             <div class="shop__button">
                                 <a href="/detail/{{ $shop->id }}?from=mypage" class="shop__button-detail">詳しくみる</a>
                                 @if(in_array($shop->id,$favorites))
-                                    <form action="{{ route('unfavorite',$shop) }}" method="post" class="shop__button-favorite">
+                                    <form action="{{ route('favorite.delete',$shop) }}" method="post" class="shop__button-favorite">
                                         @csrf
                                         @method('delete')
                                             <button type="submit" class="shop__button-favorite-btn" title="お気に入り削除">
-                                                <img class="favorite__btn-image" src="{{ asset('images/heart_color.svg') }}">
+                                                <img class="favorite__btn-image" src="{{ asset('images/heart_fill.svg') }}">
                                             </button>
                                     </form>
                                 @endif
@@ -102,11 +102,11 @@
                         <div class="shop__button">
                             <a href="/detail/{{ $shop->id }}?from=mypage" class="shop__button-detail">詳しくみる</a>
                             @if(in_array($shop->id,$favorites))
-                                <form action="{{ route('unfavorite',$shop) }}" method="post" class="shop__button-favorite">
+                                <form action="{{ route('favorite.delete',$shop) }}" method="post" class="shop__button-favorite">
                                     @csrf
                                     @method('delete')
                                         <button type="submit" class="shop__button-favorite-btn" title="お気に入り削除">
-                                            <img class="favorite__btn-image" src="{{ asset('images/heart_color.svg') }}">
+                                            <img class="favorite__btn-image" src="{{ asset('images/heart-fill.svg') }}">
                                         </button>
                                 </form>
                             @endif

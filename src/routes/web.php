@@ -20,8 +20,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class,'destroy']);
     Route::get('/mypage',[MyPageController::class,'index']);
 
-    Route::post('/mypage/add/{shop}',[MyPageController::class,'store'])->name('favorite.add');
-    Route::post('/mypage/delete/{shop}',[MyPageController::class,'destroy'])->name('favorite.delete');
+    Route::get('/mypage/favorite/add/{shop}',[MyPageController::class,'store'])->name('favorite.add');
+    Route::DELETE('/mypage/favorite/delete/{shop}',[MyPageController::class,'favoriteDestroy'])->name('favorite.delete');
+    Route::DELETE('/mypage/reservation/delete/{reservation}',[MyPageController::class,'reservationDestroy'])->name('reservation.delete');
 
 });
 
