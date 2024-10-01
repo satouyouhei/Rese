@@ -11,7 +11,7 @@
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-<img src="/images/Rese_Top.png" width="400">
+<img src="/images/Rese_Top.png" width="600">
 
 ## 作成した目的
 
@@ -49,7 +49,7 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 ## テーブル設計
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<img src="/images/table.png" width="600">
 
 ## ER図
 
