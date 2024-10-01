@@ -49,13 +49,13 @@ class MyPageController extends Controller
     {
         Auth::user()->favorites()->where('shop_id',$shop->id)->delete();
 
-        return redirect('/mypage');
+        return back();
     }
 
     public function reservationDestroy(Reservation $reservation)
     {   
         $reservation->delete();
-        return redirect('/mypage');
+        return back();
     }
 
     private function getReservationsByStatus()

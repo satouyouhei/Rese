@@ -117,6 +117,18 @@
     content: "";
 }
 
+.form__button {
+    margin: auto;
+    display: block;
+    background-color: rgb(63, 90, 242);
+    border: 1px solid rgb(63, 90, 242);
+    border-radius: 5px;
+    color: #fff;
+    padding: 3px 0;
+    width: 60px;
+    cursor: pointer;
+}
+
 .header__right--hidden {
     display: none;
 }
@@ -198,6 +210,10 @@
     cursor: pointer;
     border: none;
     background-color: #fff;
+}
+
+.favorite__btn-image--red{
+    color: red;
 }
 
 .shop__button-favorite-btn:hover {
@@ -345,18 +361,6 @@
 
     #drawer__input-search:checked~.overlay {
         display: block;
-    }
-
-    .form__button {
-        margin: auto;
-        display: block;
-        background-color: rgb(63, 90, 242);
-        border: 1px solid rgb(63, 90, 242);
-        border-radius: 5px;
-        color: #fff;
-        padding: 3px 0;
-        width: 60px;
-        cursor: pointer;
     }
 
     .form__button:hover {
