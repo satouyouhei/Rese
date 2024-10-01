@@ -11,7 +11,7 @@
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-<img src="/images/Rese_Top.sng" width="400">
+<img src="/images/Rese_Top.png" width="400">
 
 ## 作成した目的
 
