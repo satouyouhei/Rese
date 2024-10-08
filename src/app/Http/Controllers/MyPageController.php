@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ReservationRequest;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
@@ -32,7 +33,15 @@ class MyPageController extends Controller
             'shops' => $shops
         ];
 
-        return view('mypage', $viewData);
+        if ($user->hasRole('admin')) {
+            $viewData['roleView'] = 'mypage.admin';
+        } elseif ($user->hasRole('shop')) {
+            $viewData['roleView'] = 'mypage.shop';
+        } else {
+            $viewData['roleView'] = 'mypage.user';
+        }
+
+        return view('mypage.mypage', $viewData);
     }
 
     public function store(Shop $shop)
@@ -45,6 +54,22 @@ class MyPageController extends Controller
         return back();
     }
 
+    public function edit(Reservation $reservation)
+    {
+        $user = Auth::user();
+        $shop = Shop::find($reservation->shop_id);
+        $backRoute = '/mypage';
+
+        return view('detail', compact('reservation', 'user', 'shop', 'backRoute'));
+    }
+
+    public function update(ReservationRequest $request, Reservation $reservation)
+    {
+        $edit = $request->all();
+        Reservation::find($reservation->id)->update($edit);
+        return redirect('/done');
+    }
+
     public function favoriteDestroy(Shop $shop)
     {
         Auth::user()->favorites()->where('shop_id',$shop->id)->delete();
@@ -53,17 +78,18 @@ class MyPageController extends Controller
     }
 
     public function reservationDestroy(Reservation $reservation)
-    {   
+    {
         $reservation->delete();
+
         return back();
     }
 
     private function getReservationsByStatus()
     {
         return Auth::user()->reservations()
-            ->with('shop')
-            ->orderBy('date')
-            ->orderBy('time')
-            ->get();
+                ->with('shop')
+                ->orderBy('date')
+                ->orderBy('time')
+                ->get();
     }
 }

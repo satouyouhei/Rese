@@ -19,7 +19,7 @@
                         <div class="reservation__header">
                             <p class="header__title reservation__header__title">予約{{ $loop->iteration }}</p>
                             <div class="reservation__header-button">
-                                <form action="" method="get" class="header__form">
+                                <form action="{{ route('reservation.edit',$reservation )}}" method="get" class="header__form">
                                     <button type="submit" class="form__button--edit" onclick="return confirmEdit()" title="予約変更">
                                         <img src="{{ asset('images/pencil.svg') }}" alt="予約変更" class="form__button-img">
                                     </button>
@@ -75,7 +75,7 @@
                                         @csrf
                                         @method('delete')
                                             <button type="submit" class="shop__button-favorite-btn" title="お気に入り削除">
-                                                <img class="favorite__btn-image" src="{{ asset('images/heart_fill.svg') }}">
+                                                <img class="favorite__btn-image" src="{{ asset('images/heart-fill.svg') }}">
                                             </button>
                                     </form>
                                 @endif

@@ -29,7 +29,16 @@ class ShopController extends Controller
         $userId = Auth::id();
         $shop = Shop::find($request->shop_id);
         $from = $request->input('from');
+        
         $backRoute = '/';
+         switch ($from) {
+            case 'index':
+                $backRoute = '/';
+                break;
+            case 'mypage':
+                $backRoute = '/mypage';
+                break;
+        }
         return view('detail', compact('user', 'shop','backRoute'));
     }
 

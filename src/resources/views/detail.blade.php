@@ -23,7 +23,7 @@
             <p class="detail__outline-text">{{ $shop->outline }}</p>
         </div>
     </div>
-    <form action="/reserve/{{$shop->id}}" method="post" class="reservation__wrap">
+    <form action="{{ request()->is('*edit*') ? route('reservation.update', $reservation) : route('reservation', $shop) }}" method="post" class="reservation__wrap">
         @csrf
         <div class="reservation__content">
             <p class="reservation__title">{{ request()->is('*edit*') ? '予約変更' : '予約' }}
@@ -45,7 +45,7 @@
                 <select name="time" class="form__item">
                     <option value="" {{ request()->is('*edit*') && isset($reservation->time) ? '' : 'selected' }}
                         disabled>-- 時間を選択してください --</option>
-                    @foreach (['20:00', '20:30', '21:00', '21:30', '22:00'] as $time)
+                    @foreach (['18:00','18:30','19:00','19:30','20:00', '20:30', '21:00', '21:30', '22:00'] as $time)
                         <option value="{{ $time }}"
                             {{ request()->is('*edit*') && $time == date('H:i', strtotime($reservation->time)) ? 'selected' : '' }}>
                             {{ $time }}
@@ -83,7 +83,7 @@
                         </tr>
                         <tr>
                             <th class="table__header">Date</th>
-                            <td class="table__item" id="dateId">{{ request()->is('*edit*') ? $reservation->date : '' }}
+                            <td class="table__item" id="dateId">{{request()->is('*edit*') ? $reservation->date : ''  }}
                             </td>
                         </tr>
                         <tr>
