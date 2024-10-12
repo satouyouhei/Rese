@@ -52,4 +52,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class, 'user_id');
     }
+
+        public function shopRepresentative()
+    {
+        return $this->hasOne(Shop_representatives::class, 'user_id');
+    }
+
 }

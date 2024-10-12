@@ -5,6 +5,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\ManagementScreenController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,16 +48,15 @@ Route::view('/thanks', 'thanks');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::controller(AdminController::class)->group(function () {
-        Route::post('/register/shopRepresentative', 'register');
-        Route::get('/user/index', 'userShow');
-        Route::get('/search-users/index', 'search');
+        Route::post('/register/shopRepresentative','register');
+        Route::view('/register','admin.register_shopRepresentative');
     });
 });
 
 Route::middleware(['auth', 'role:shop'])->prefix('shop')->group(function () {
     Route::controller(ManagementScreenController::class)->group(function () {
         Route::get('/shop-edit', 'editShow');
-        Route::post('/shop-edit', 'create_and_edit');
+        Route::post('/shop-edit', 'create_and_edit')->name('shopEdit');
         Route::get('/confirm/shop-reservation', 'reservationShow');
         Route::patch('/update/shop-reservation', 'update');
         Route::delete('/destroy/shop-reservation', 'destroy');

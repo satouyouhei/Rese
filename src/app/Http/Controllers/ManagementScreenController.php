@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Shop;
+use App\Models\Area;
+use App\Models\Genre;
+use App\Models\Favorite;
+use App\Models\Reservation;
+use App\Models\Shop_representatives;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ManagementScreenController extends Controller
 {
@@ -18,7 +26,7 @@ class ManagementScreenController extends Controller
             $shop = $shopRepresentative->shop;
         }
 
-        return view('writer/shop_edit', compact('areas', 'genres', 'shop'));
+        return view('shop.shop_edit', compact('areas', 'genres', 'shop'));
     }
 
     public function create_and_edit(Request $request)
@@ -29,9 +37,10 @@ class ManagementScreenController extends Controller
             $shop = $request->except(['_token', 'image_url']);
 
             if ($request->image_url) {
-                $path = $request->file('image_url')->store('reservationsystem-restaurant', 's3');
+                $image = $request->file('image_url');
+                $path = $image->store('public/images');
                 $request->file('image_url');
-                $shop['image_url'] = Storage::disk('s3')->url($path);
+                $shop['image_url'] = Storage::disk('public/images')->url($path);
             }
 
             Shop::find($shopRepresentative->shop_id)->update($shop);
@@ -74,7 +83,7 @@ class ManagementScreenController extends Controller
                 ->get();
         }
 
-        return view('writer/shop_reservation', compact('displayDate', 'reservations'));
+        return view('shop.shop_reservation', compact('displayDate', 'reservations'));
     }
 
     public function update(Request $request)

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -13,6 +17,7 @@ class AdminController extends Controller
 
         return view('admin.user', compact('users', 'roles'));
     }
+
 
     public function register(Request $request)
     {
