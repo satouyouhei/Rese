@@ -9,6 +9,7 @@ use App\Models\Genre;
 use App\Models\Favorite;
 use App\Models\Reservation;
 use App\Models\Shop_representatives;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -37,14 +38,14 @@ class ManagementScreenController extends Controller
             $shop = $request->except(['_token', 'image_url']);
 
             if ($request->image_url) {
-                $image = $request->file('image_url');
-                $path = $image->store('public/images');
-                $request->file('image_url');
-                $shop['image_url'] = Storage::disk('public/images')->url($path);
+                $image = $request->image_url;
+                $path = $image->store('public');
+                $shop['image_url'] = basename(Storage::disk('public')->url($path));
             }
 
             Shop::find($shopRepresentative->shop_id)->update($shop);
             return back()->with('success', '店舗情報を更新しました。');
+
         } else {
             $shop = $request->all();
             $createdShop = Shop::create($shop);

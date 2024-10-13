@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="detail__image">
-            <img src="{{ $shop->image_url }}" alt="イメージ画像" class="detail__image-img">
+            <img src="{{ asset( 'storage/'.$shop->image_url ) }}" alt="イメージ画像" class="detail__image-img">
         </div>
         <div class="detail__tag">
             <p class="detail__tag-info">#{{ $shop->area->name }}</p>

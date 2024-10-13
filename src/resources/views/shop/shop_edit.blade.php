@@ -72,7 +72,7 @@
                         @if ($shop == null)
                             <p class="edit__area-message">登録済みのイメージはありません。</p>
                         @else
-                            <a href="{{ $shop->image_url }}" class="edit__area-link vertical-center">登録済みのイメージ</a>
+                            <a href="{{ asset( 'storage/'.$shop->image_url ) }}" class="edit__area-link vertical-center">登録済みのイメージ</a>
                         @endif
                         <p class="edit__area-message">※変更する場合</p>
                         <input type="file" name="image_url" class="edit__area-file">

@@ -18,8 +18,8 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::middleware('auth')->group(function () {
-    Route::middleware('verified')->group(function () {
+Route::middleware(['verified'])->group(function () {
+    Route::middleware('auth')->group(function () {
 
         Route::get('/logout', [AuthController::class,'destroy']);
 
