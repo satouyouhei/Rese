@@ -15,7 +15,7 @@ use Carbon\Carbon;
 
 class ManagementScreenController extends Controller
 {
-   public function editShow()
+   public function editIndex()
     {
         $areas = Area::all();
         $genres = Genre::all();
@@ -47,7 +47,11 @@ class ManagementScreenController extends Controller
             return back()->with('success', '店舗情報を更新しました。');
 
         } else {
-            $shop = $request->all();
+            $shop = $request->except(['image_url']);
+            $image = $request->image_url;
+            $path = $image->store('public');
+            $shop['image_url'] = basename(Storage::disk('public')->url($path));
+
             $createdShop = Shop::create($shop);
 
             $shopRepresentative = new Shop_representatives();
@@ -60,7 +64,7 @@ class ManagementScreenController extends Controller
         }
     }
 
-    public function reservationShow(Request $request)
+    public function reservationIndex(Request $request)
     {
         Carbon::setLocale('ja');
 

@@ -55,9 +55,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
 Route::middleware(['auth', 'role:shop'])->prefix('shop')->group(function () {
     Route::controller(ManagementScreenController::class)->group(function () {
-        Route::get('/shop-edit', 'editShow');
+        Route::get('/shop-edit', 'editIndex');
         Route::post('/shop-edit', 'create_and_edit')->name('shopEdit');
-        Route::get('/confirm/shop-reservation', 'reservationShow');
+        Route::get('/confirm/shop-reservation', 'reservationIndex');
         Route::patch('/update/shop-reservation', 'update');
         Route::delete('/destroy/shop-reservation', 'destroy');
     });
