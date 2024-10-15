@@ -40,7 +40,10 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 
 ## 機能一覧
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+ログイン機能、メール認証、お気に入り追加/削除、予約追加/変更、検索、並び替え、レビュー、
+リマインドメール送信、QRコードで予約認証、決済機能
+管理者権限で店舗代表者作成、ユーザー一覧閲覧、お知らせメール送信
+店舗代表者権限で店舗情報の作成/更新
 
 ## 使用技術
 
@@ -55,3 +58,24 @@ In order to ensure that the Laravel community is welcoming to all, please review
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## 環境構築
+
+## ダミーデータの説明
+
+ユーザー一覧
+<ol>
+    <li>管理者　　　email: admin@admin.com</li>
+    <li>店舗代表者　email: shop@shop.com</li>
+    <li>ユーザー　　　email: test@test.com</li>
+</ol>
+※パスワードは全て"password"でログインできます。
+
+## 店舗の新規作成方法
+
+<ol>
+    <li>管理者でログイン</li>
+    <li>”店舗代表者作成”で店舗代表者権限を持つユーザを作成</li>
+    <li>店舗代表者でログイン</li>
+    <li>店舗情報の作成で作成する</li>
+</ol>
+
+
