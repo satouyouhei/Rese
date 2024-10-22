@@ -11,7 +11,7 @@ header {
 .detail__wrap {
     width: 48%;
     margin-top: 10px;
-    height: 620px;
+    height: 800px;
     overflow: auto;
 }
 
@@ -106,7 +106,7 @@ header {
 .review__count::before,
 .review__count-none::before {
     content: "";
-    background: url(../images/review_lightcoral.svg) no-repeat;
+    background: url(../images/chat-right-text-fill.svg) no-repeat;
     vertical-align: middle;
     width: 15px;
     height: 15px;
@@ -117,7 +117,7 @@ header {
 
 .favorite__count::before {
     content: "";
-    background: url(../images/heart_color.svg) no-repeat;
+    background: url(../images/heart-fill.svg) no-repeat;
     vertical-align: middle;
     width: 15px;
     height: 15px;

@@ -15,6 +15,7 @@ class Shop extends Model
         'area_id',
         'genre_id',
         'image_url',
+        'avg_rating',
     ];
 
     public function favorites()

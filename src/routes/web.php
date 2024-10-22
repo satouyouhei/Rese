@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\ManagementScreenController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware(['verified'])->group(function () {
 
         Route::get('/mypage',[MyPageController::class,'index']);
         Route::get('/mypage/favorite/add/{shop}',[MyPageController::class,'store'])->name('favorite.add');
+        Route::post('/mypage/favorite/add/{shop}',[MyPageController::class,'store'])->name('favorite.add.review');
         Route::DELETE('/mypage/favorite/delete/{shop}',[MyPageController::class,'favoriteDestroy'])->name('favorite.delete');
         Route::get('/mypage/reservation/edit/{reservation}',[MyPageController::class,'edit'])->name('reservation.edit');
         Route::post('/mypage/reservation/update/{reservation}',[MyPageController::class,'update'])->name('reservation.update');
@@ -45,7 +47,6 @@ Route::get('/register', [AuthController::class,'getRegister']);
 Route::post('/register', [AuthController::class,'postRegister']);
 Route::view('/thanks', 'thanks');
 
-
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::post('/register/shopRepresentative','register');
@@ -61,6 +62,16 @@ Route::middleware(['auth', 'role:shop'])->prefix('shop')->group(function () {
         Route::patch('/update/shop-reservation', 'update');
         Route::delete('/destroy/shop-reservation', 'destroy');
     });
+});
+
+Route::prefix('review')->controller(ReviewController::class)->group(function () {
+    Route::get('/{shop_id}', 'index')->name('review');
+    Route::post('/store/{shop_id}', 'store')->name('review.store');
+    Route::post('/delete/{review_id}', 'delete');
+});
+
+Route::controller(ReviewController::class)->group(function () {
+    Route::get('/review/shop/{shop_id}', 'list');
 });
 
 // Route::get('/', function () {

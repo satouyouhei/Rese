@@ -7,6 +7,8 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Reservation;
+use App\Models\Review;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ReservationRequest;
 
@@ -28,7 +30,12 @@ class ShopController extends Controller
         $user = Auth::user();
         $userId = Auth::id();
         $shop = Shop::find($request->shop_id);
+        $review = Review::where('user_id', $userId)->where('shop_id', $shop->id)->first();
         $from = $request->input('from');
+
+        $shopReviews = Review::where('shop_id', $request->shop_id)->get();
+        $avgRating = round(Review::where('shop_id', $request->shop_id)->avg('rating'), 1);
+        $countFavorites = Favorite::where('shop_id', $shop->id)->count();
         
         $backRoute = '/';
          switch ($from) {
@@ -39,7 +46,7 @@ class ShopController extends Controller
                 $backRoute = '/mypage';
                 break;
         }
-        return view('detail', compact('user', 'shop','backRoute'));
+        return view('detail', compact('user', 'shop', 'review', 'avgRating', 'countFavorites', 'backRoute'));
     }
 
     public function store(ReservationRequest $request)
@@ -51,6 +58,7 @@ class ShopController extends Controller
         $reservation->date = $request->input('date');
         $reservation->time = $request->input('time');
         $reservation->number = $request->input('number');
+        $reservation->status = "予約";
         $reservation->save();
         
 
@@ -65,14 +73,6 @@ class ShopController extends Controller
         $favorites = $this->getFavorites();
 
         return view('index', compact('shops', 'areas', 'genres', 'favorites'));
-    }
-
-    private function getFavorites(): array
-    {
-        if (Auth::check()) {
-            return Auth::user()->favorites()->pluck('shop_id')->toArray();
-        }
-        return [];
     }
 
     private function searchShops(Request $request): \Illuminate\Support\Collection
@@ -93,6 +93,14 @@ class ShopController extends Controller
             });
 
         return $query->get();
+    }
+    
+    private function getFavorites(): array
+    {
+        if (Auth::check()) {
+            return Auth::user()->favorites()->pluck('shop_id')->toArray();
+        }
+        return [];
     }
 
 }

@@ -18,6 +18,8 @@ class ReservationFactory extends Factory
     {
         $randomDate = Carbon::now()->subWeek(2)->addDays(rand(0, 16))->toDateString();
 
+        $status = Carbon::parse($randomDate)->lte(Carbon::today()) ? '来店' : '予約';
+
         return [
             'user_id' => function () {
                 return User::inRandomOrder()->first()->id;
@@ -26,6 +28,7 @@ class ReservationFactory extends Factory
             'date' => $randomDate,
             'time' => $this->faker->randomElement(['20:00', '20:30', '21:00', '21:30', '22:00']),
             'number' => $this->faker->numberBetween(1, 5),
+            'status' => $status,
             'created_at' => now(),
             'updated_at' => now(),
         ];

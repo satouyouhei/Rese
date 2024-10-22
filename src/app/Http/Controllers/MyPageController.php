@@ -8,6 +8,7 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Favorite;
+use App\Models\Review;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,8 @@ class MyPageController extends Controller
 {
     public function index()
     {
-        $reservations = $this->getReservationsByStatus();
+        $reservations = $this->getReservationsByStatus('予約');
+        $histories = $this->getReservationsByStatus('来店');
 
         $favorites = Auth::user()->favorites()
             ->pluck('shop_id')
@@ -24,13 +26,17 @@ class MyPageController extends Controller
         $shops = Shop::with(['area', 'genre'])
             ->whereIn('id', $favorites)
             ->get();
-
         $user = Auth::user();
+        $userId = $user->id;
+        $reviews = Review::where('user_id', $userId);
+
         $viewData = [
             'user' => $user,
             'reservations' => $reservations,
+            'histories' => $histories,
             'favorites' => $favorites,
-            'shops' => $shops
+            'shops' => $shops,
+            'reviews' => $reviews,
         ];
 
         if ($user->hasRole('admin')) {
@@ -84,12 +90,13 @@ class MyPageController extends Controller
         return back();
     }
 
-    private function getReservationsByStatus()
+    private function getReservationsByStatus($status)
     {
         return Auth::user()->reservations()
-                ->with('shop')
-                ->orderBy('date')
-                ->orderBy('time')
-                ->get();
+            ->where('status', $status)
+            ->with('shop')
+            ->orderBy('date', $status === '予約' ? 'asc' : 'desc')
+            ->orderBy('time', $status === '予約' ? 'asc' : 'desc')
+            ->get();
     }
 }

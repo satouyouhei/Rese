@@ -20,29 +20,13 @@
 
 ## アプリケーションURL
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
 ## 他のリポジトリ
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
 ## 機能一覧
 
-ログイン機能、メール認証、お気に入り追加/削除、予約追加/変更、検索、並び替え、レビュー、
-リマインドメール送信、QRコードで予約認証、決済機能
-管理者権限で店舗代表者作成、ユーザー一覧閲覧、お知らせメール送信
+ログイン機能、メール認証、お気に入り追加/削除、予約追加/変更、レビュー、<br/>
+リマインドメール送信、QRコードで予約認証、決済機能 <br/>
+管理者権限で店舗代表者作成、お知らせメール送信<br/>
 店舗代表者権限で店舗情報の作成/更新
 
 ## 使用技術
@@ -77,5 +61,3 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     <li>店舗代表者でログイン</li>
     <li>店舗情報の作成で作成する</li>
 </ol>
-
-

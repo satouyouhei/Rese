@@ -54,7 +54,43 @@
                     </div>
                 @endforeach
             </div>
-
+            
+            <label class="reservation__title hover__color--steelblue">
+                <input type="radio" name="tab" class="reservation__title-input">
+                    飲食履歴
+            </label>
+            <div class="reservation__content-wrap">
+                @foreach ($histories as $reservation)
+                    <div class="reservation__content reservation__content--steelblue">
+                        <div class="reservation__header">
+                            <p class="header__title reservation-history__header__title">履歴{{ $loop->iteration }}</p>
+                        </div>
+                        <table class="reservation__table">
+                            <tr>
+                                <th class="table__header">Shop</th>
+                                <td class="table__item">{{ $reservation->shop->name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table__header">Date</th>
+                                    <td class="table__item">{{ $reservation->date }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table__header">Time</th>
+                                    <td class="table__item">{{ date('H:i',strtotime($reservation->time)) }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table__header">Number</th>
+                                <td class="table__item">{{ $reservation->number }}人</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="/review/{{ $reservation->shop->id }}?from=mypage" class="shop__button-detail">口コミを投稿する</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                @endforeach
+            </div>
             <label class="reservation__title hover__color--orange mobile-favorite__title">
                 <input type="radio" name="tab" class="reservation__title-input">お気に入り店舗
             </label>
