@@ -20,8 +20,6 @@
 
 ## アプリケーションURL
 
-## 他のリポジトリ
-
 ## 機能一覧
 
 ログイン機能、メール認証、お気に入り追加/削除、予約追加/変更、レビュー、<br/>
@@ -31,7 +29,7 @@
 
 ## 使用技術
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+docker,Laravel8.x,PHP7.4,laravel-fortify,laravel-permission,Stripe,javascript
 
 ## テーブル設計
 
@@ -42,6 +40,32 @@ In order to ensure that the Laravel community is welcoming to all, please review
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## 環境構築
+### コマンドライン上
+```
+$ git clone https://github.com/satouyouhei/Rese.git
+```
+
+```php
+$ docker compose up -d --build
+$ docker compose exec php bash
+```
+### PHPコンテナ内
+```php
+$ composer install
+```
+
+### src上
+```php
+$ cp .env.local .env
+```
+
+### PHPコンテナ内
+```php
+$ php artisan key:generate
+$ php artisan migrate --seed
+```
+
+
 
 ## ダミーデータの説明
 
