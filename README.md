@@ -37,7 +37,7 @@ docker,Laravel8.x,PHP7.4,laravel-fortify,laravel-permission,Stripe,javascript
 
 ## ER図
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<img src="/images/ER.drawio.png" width="600">
 
 ## 環境構築
 ### コマンドライン上
@@ -62,10 +62,9 @@ $ cp .env.local .env
 ### PHPコンテナ内
 ```php
 $ php artisan key:generate
-$ php artisan migrate --seed
+$ php artisan migrate
+$ php artisan db:seed
 ```
-
-
 
 ## ダミーデータの説明
 
