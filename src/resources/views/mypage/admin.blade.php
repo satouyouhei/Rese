@@ -2,7 +2,7 @@
 <nav class="admin-nav__content">
     <ul class="admin-nav__item">
         <li class="admin-nav__list">
-            <a href="/admin/email-notification" class="admin-nav__link">お知らせメール作成・送信</a>
+            <a href="/admin/email_notification" class="admin-nav__link">お知らせメール作成・送信</a>
         </li>
         <li class="admin-nav__list">
             <a href="/admin/register" class="admin-nav__link">店舗代表者作成</a>

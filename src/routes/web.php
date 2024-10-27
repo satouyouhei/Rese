@@ -7,6 +7,7 @@ use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\ManagementScreenController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::post('/register/shopRepresentative','register');
         Route::view('/register','admin.register_shopRepresentative');
+        Route::view('/email_notification', 'admin.email_notification');
     });
 });
 
@@ -73,6 +75,8 @@ Route::prefix('review')->controller(ReviewController::class)->group(function () 
 Route::controller(ReviewController::class)->group(function () {
     Route::get('/review/shop/{shop_id}', 'list');
 });
+
+Route::post('/admin/email-notification', [MailController::class, 'sendNotification'])->name('send.notification');
 
 // Route::get('/', function () {
 //     return view('welcome');

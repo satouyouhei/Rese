@@ -12,8 +12,8 @@
                 <span class="header__shop-name">{{ $shop->name }}</span>
             </div>
             <div class="header__review">
-                <span class="rating__star" data-rate="{{ number_format($avgRating,1) }}"></span>
-                <span class="rating__number">{{ number_format($avgRating,1) }}</span>
+                <span class="rating__star" data-rate="{{ number_format($avgRating, 1) }}"></span>
+                <span class="rating__number">{{ number_format($avgRating, 1) }}</span>
                 <span class="favorite__count">{{ $countFavorites }} 人</span>
             </div>
         </div>
@@ -29,7 +29,8 @@
         </div>
     </div>
 
-    <form action="{{ request()->is('*edit*') ? route('reservation.update', $reservation) : route('reservation', $shop) }}" method="post" class="reservation__wrap">
+        <form action="{{ request()->is('*edit*') ? route('reservation.update', $reservation) : route('reservation', $shop) }}"
+        method="post" class="reservation__wrap">
         @csrf
         <div class="reservation__content">
             <p class="reservation__title">{{ request()->is('*edit*') ? '予約変更' : '予約' }}
@@ -37,7 +38,7 @@
             <div class="form__content">
                 <input type="date" id="datePicker" class="form__item" name="date"
                     value="{{ request()->is('*edit*') ? $reservation->date : '' }}">
-                    <script>
+                <script>
                     window.onload = function() {
                         var today = new Date().toISOString().split('T')[0];
                         document.getElementById("datePicker").setAttribute('min', today);
@@ -51,7 +52,7 @@
                 <select name="time" class="form__item">
                     <option value="" {{ request()->is('*edit*') && isset($reservation->time) ? '' : 'selected' }}
                         disabled>-- 時間を選択してください --</option>
-                    @foreach (['18:00','18:30','19:00','19:30','20:00', '20:30', '21:00', '21:30', '22:00'] as $time)
+                    @foreach (['20:00', '20:30', '21:00', '21:30', '22:00'] as $time)
                         <option value="{{ $time }}"
                             {{ request()->is('*edit*') && $time == date('H:i', strtotime($reservation->time)) ? 'selected' : '' }}>
                             {{ $time }}
@@ -89,16 +90,18 @@
                         </tr>
                         <tr>
                             <th class="table__header">Date</th>
-                            <td class="table__item" id="dateId">{{request()->is('*edit*') ? $reservation->date : ''  }}
+                            <td class="table__item" id="dateId">{{ request()->is('*edit*') ? $reservation->date : '' }}
                             </td>
                         </tr>
                         <tr>
                             <th class="table__header">Time</th>
-                            <td class="table__item" id="timeId">{{ request()->is('*edit*') ? date('H:i', strtotime($reservation->time)) : '' }}</td>
+                            <td class="table__item" id="timeId">
+                                {{ request()->is('*edit*') ? date('H:i', strtotime($reservation->time)) : '' }}</td>
                         </tr>
                         <tr>
                             <th class="table__header">Number</th>
-                            <td class="table__item" id="numberId">{{ request()->is('*edit*') ? $reservation->number . '人' : '' }}</td>
+                            <td class="table__item" id="numberId">
+                                {{ request()->is('*edit*') ? $reservation->number . '人' : '' }}</td>
                         </tr>
                     </table>
                 </div>
@@ -106,7 +109,12 @@
         </div>
         <div class="reservation__button">
             @if (Auth::check())
-                    <button type="submit" class="reservation__button-btn">{{ request()->is('*edit*') ? '予約内容を変更する' : '予約する' }}</button>
+                @if (Auth::user()->hasRole('admin|writer'))
+                    <p class="reservation__message">予約は"ユーザー"の方のみ可能です</p>
+                @else
+                    <button type="submit" class="reservation__button-btn"
+                        onclick="return confirmReservation()">{{ request()->is('*edit*') ? '予約内容を変更する' : '予約する' }}</button>
+                @endif
             @else
                 <button type="button" class="reservation__button-btn--disabled" disabled>予約は<a href="/register"
                         class="reservation__button-link">会員登録</a><a href="/login"
@@ -114,6 +122,7 @@
             @endif
         </div>
     </form>
+    <script src="{{ asset('js/detail.js') }}"></script>
 @endsection
 @section('footer')
     <div class="my-review__content">

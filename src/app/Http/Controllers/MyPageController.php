@@ -64,9 +64,15 @@ class MyPageController extends Controller
     {
         $user = Auth::user();
         $shop = Shop::find($reservation->shop_id);
+        $review = Review::where('user_id', $user->id)->where('shop_id', $shop->id)->first();
+
+        $shopReviews = Review::where('shop_id', $reservation->shop_id)->get();
+        $avgRating = round(Review::where('shop_id', $reservation->shop_id)->avg('rating'), 1);
+        $countFavorites = Favorite::where('shop_id', $reservation->shop_id)->count();
+
         $backRoute = '/mypage';
 
-        return view('detail', compact('reservation', 'user', 'shop', 'backRoute'));
+        return view('detail', compact('reservation', 'user', 'shop', 'review', 'shopReviews', 'avgRating', 'countFavorites', 'backRoute'));
     }
 
     public function update(ReservationRequest $request, Reservation $reservation)
