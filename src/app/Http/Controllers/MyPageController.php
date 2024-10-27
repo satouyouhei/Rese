@@ -11,6 +11,8 @@ use App\Models\Favorite;
 use App\Models\Review;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class MyPageController extends Controller
 {
@@ -104,5 +106,27 @@ class MyPageController extends Controller
             ->orderBy('date', $status === '予約' ? 'asc' : 'desc')
             ->orderBy('time', $status === '予約' ? 'asc' : 'desc')
             ->get();
+    }
+
+    public function pay(Request $request){
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+        $user = Auth::user();
+
+        if (!$user->stripe_id) {
+            $user->createAsStripeCustomer();
+        }
+
+        Charge::create([
+            'amount' => 100,
+            'currency' => 'jpy',
+            'source' => $request->stripeToken,
+        ]);
+
+        $user->update([
+            'stripe_id' => $user->stripe_id,
+        ]);
+
+        return back();
     }
 }

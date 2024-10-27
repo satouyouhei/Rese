@@ -78,6 +78,8 @@ Route::controller(ReviewController::class)->group(function () {
 
 Route::post('/admin/email-notification', [MailController::class, 'sendNotification'])->name('send.notification');
 
+Route::post('/pay', [MyPageController::class, 'pay'])->middleware('auth');
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
