@@ -32,7 +32,6 @@ Route::middleware(['verified'])->group(function () {
         Route::get('/mypage/reservation/edit/{reservation}',[MyPageController::class,'edit'])->name('reservation.edit');
         Route::post('/mypage/reservation/update/{reservation}',[MyPageController::class,'update'])->name('reservation.update');
         Route::DELETE('/mypage/reservation/delete/{reservation}',[MyPageController::class,'reservationDestroy'])->name('reservation.delete');
-    
     });
 });
 
@@ -57,7 +56,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 });
 
 Route::middleware(['auth', 'role:shop'])->prefix('shop')->group(function () {
-        Route::view('/email_notification', 'admin.email_notification');
+    Route::view('/email_notification', 'admin.email_notification');
 });
 
 Route::middleware(['auth', 'role:shop'])->prefix('shop')->group(function () {
