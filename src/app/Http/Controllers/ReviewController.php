@@ -65,6 +65,7 @@ class ReviewController extends Controller
 
     public function confirm($reservationId)
     {
+        dd($reservationId);
         $reservation = Reservation::find($reservationId);
         $reservation->status = '来店';
         $reservation->save();

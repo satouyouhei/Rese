@@ -39,7 +39,7 @@ docker,Laravel8.x,PHP7.4,laravel-fortify,laravel-permission,Stripe,javascript
 
 <img src="/images/ER.drawio.png" width="600">
 
-## 環境構築
+## 開発環境構築
 ### コマンドライン上
 ```
 $ git clone https://github.com/satouyouhei/Rese.git

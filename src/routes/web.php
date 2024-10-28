@@ -57,6 +57,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 });
 
 Route::middleware(['auth', 'role:shop'])->prefix('shop')->group(function () {
+        Route::view('/email_notification', 'admin.email_notification');
+});
+
+Route::middleware(['auth', 'role:shop'])->prefix('shop')->group(function () {
     Route::controller(ManagementScreenController::class)->group(function () {
         Route::get('/shop-edit', 'editIndex');
         Route::post('/shop-edit', 'create_and_edit')->name('shopEdit');
@@ -78,7 +82,12 @@ Route::controller(ReviewController::class)->group(function () {
 
 Route::post('/admin/email-notification', [MailController::class, 'sendNotification'])->name('send.notification');
 
+Route::post('/shop/email-notification', [MailController::class, 'sendNotification']);
+
 Route::post('/pay', [MyPageController::class, 'pay'])->middleware('auth');
+
+Route::get('/reservation/confirm/{reservation}', [ReviewController::class, 'confirm'])->middleware('signed')->name('reservation.confirm');
+Route::view('/reservation/confirm/scan', 'scan');
 
 // Route::get('/', function () {
 //     return view('welcome');

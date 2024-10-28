@@ -41,6 +41,7 @@ class SendReminder extends Command
     {
         $reservations = Reservation::whereDate('date', today())->get();
 
+
         foreach ($reservations as $reservation) {
             \Mail::to($reservation->user->email)->send(new ReservationReminder($reservation));
         }

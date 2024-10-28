@@ -3,5 +3,6 @@
     <ul class="admin-nav__item">
         <li class="admin-nav__list"><a href="shop/shop-edit" class="admin-nav__link">店舗情報の作成・更新</a></li>
         <li class="admin-nav__list"><a href="shop/confirm/shop-reservation" class="admin-nav__link">予約情報の確認</a></li>
+        <li class="admin-nav__list"><a href="shop/email_notification" class="admin-nav__link">お知らせメール作成・送信</a></li>
     </ul>
 </nav>

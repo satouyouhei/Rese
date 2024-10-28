@@ -123,7 +123,9 @@
         </div>
     </form>
     <script src="{{ asset('js/detail.js') }}"></script>
+    <script src="{{ asset('js/reservation.js') }}"></script>
 @endsection
+
 @section('footer')
     <div class="my-review__content">
         @if (Auth::check())
