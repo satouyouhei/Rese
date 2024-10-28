@@ -87,7 +87,7 @@ Route::post('/shop/email-notification', [MailController::class, 'sendNotificatio
 Route::post('/pay', [MyPageController::class, 'pay'])->middleware('auth');
 
 Route::get('/reservation/confirm/{reservation}', [ReviewController::class, 'confirm'])->middleware('signed')->name('reservation.confirm');
-Route::view('/reservation/confirm/scan', 'scan');
+Route::view('/scan', 'scan');
 
 // Route::get('/', function () {
 //     return view('welcome');

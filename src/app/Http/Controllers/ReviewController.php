@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ReviewRequest;
 use App\Models\Shop;
 use App\Models\Favorite;
+use App\Models\Reservation;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -65,11 +66,10 @@ class ReviewController extends Controller
 
     public function confirm($reservationId)
     {
-        dd($reservationId);
         $reservation = Reservation::find($reservationId);
         $reservation->status = '来店';
         $reservation->save();
 
-        return redirect('/reservation/confirm/scan');
+        return redirect('/scan');
     }
 }
