@@ -13,15 +13,26 @@ use Illuminate\Support\Facades\Storage;
 
 class ReviewController extends Controller
 {
-    public function index($shop_id)
+    public function index(Request $request , $shop_id)
     {
         $userId = Auth::id();
 
         $review = Review::where('user_id', $userId)->where('shop_id', $shop_id)->first();
         $shop = Shop::where('id', $shop_id)->first();
         $favorites = Auth::user()->favorites()->pluck('shop_id')->toArray();
+        $from = $request->input('from');
 
-        return view('reviews.index', compact('review', 'shop', 'favorites'));
+        $backRoute = '/';
+        switch ($from) {
+            case 'detail':
+                $backRoute = route('shopDetail',$shop_id);
+                break;
+            case 'mypage':
+                $backRoute = '/mypage';
+                break;
+        }
+
+        return view('reviews.index', compact('review', 'shop', 'favorites','backRoute'));
     }
 
     public function store(ReviewRequest $request, $shop_id)
@@ -56,12 +67,15 @@ class ReviewController extends Controller
     public function list(Request $request)
     {
         $user = Auth::user();
-        $shop = shop::find($request->shop_id);
-        $shopReviews = Review::where('shop_id', $request->shop_id)->get();
-        $avgRating = round(Review::where('shop_id', $request->shop_id)->avg('rating'), 1);
-        $countFavorites = Favorite::where('shop_id', $request->shop_id)->count();
+        $shop_id =$request->shop_id;
+        $shop = shop::find($shop_id);
+        $shopReviews = Review::where('shop_id', $shop_id)->get();
+        $avgRating = round(Review::where('shop_id', $shop_id)->avg('rating'), 1);
+        $countFavorites = Favorite::where('shop_id', $shop_id)->count();
 
-        return view('reviews.list', compact('user','shop', 'shopReviews', 'avgRating'));
+        $backRoute = route('shopDetail',$shop_id);
+
+        return view('reviews.list', compact('user','shop', 'shopReviews', 'avgRating','backRoute'));
     }
 
     public function confirm($reservationId)

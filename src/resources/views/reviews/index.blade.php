@@ -7,6 +7,7 @@
 @section('content')
     <div class="review__wrap">
         <div class="title__wrap">
+            <a href="{{ $backRoute }}" class="header__back"><</a>
             <p class="title__text">今回のご利用はいかがでしたか？</p>
             <div class="shop__content">
                 <img class="shop__image" src="{{ asset( 'storage/'.$shop->image_url ) }}" alt="イメージ画像">
@@ -17,7 +18,7 @@
                         <p class="shop__tag-info">#{{ $shop->genre->name }}</p>
                     </div>
                     <div class="shop__button">
-                        <a href="/detail/{{ $shop->id }}?from=index" class="shop__button-detail">詳しくみる</a>
+                        <a href="/detail/{{ $shop->id }}?from=review" class="shop__button-detail">詳しくみる</a>
                         @if (in_array($shop->id, $favorites))
                             <form action="{{ route('favorite.delete', $shop) }}" method="post" enctype="application/x-www-form-urlencoded" class="shop__button-favorite form">
                                 @csrf

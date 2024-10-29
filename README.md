@@ -66,6 +66,11 @@ $ php artisan migrate
 $ php artisan db:seed
 ```
 
+### PHPコンテナ内(リマインダー予約を適用させるため)
+```php
+$ php artisan schedule:work
+```
+
 ## ダミーデータの説明
 
 ユーザー一覧

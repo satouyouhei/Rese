@@ -29,13 +29,14 @@ class ShopController extends Controller
     {
         $user = Auth::user();
         $userId = Auth::id();
-        $shop = Shop::find($request->shop_id);
-        $review = Review::where('user_id', $userId)->where('shop_id', $shop->id)->first();
+        $shop_id = $request->shop_id;
+        $shop = Shop::find($shop_id);
+        $review = Review::where('user_id', $userId)->where('shop_id', $shop_id)->first();
         $from = $request->input('from');
 
-        $shopReviews = Review::where('shop_id', $request->shop_id)->get();
-        $avgRating = round(Review::where('shop_id', $request->shop_id)->avg('rating'), 1);
-        $countFavorites = Favorite::where('shop_id', $shop->id)->count();
+        $shopReviews = Review::where('shop_id', $shop_id)->get();
+        $avgRating = round(Review::where('shop_id', $shop_id)->avg('rating'), 1);
+        $countFavorites = Favorite::where('shop_id', $shop_id)->count();
         
         $backRoute = '/';
          switch ($from) {
@@ -44,6 +45,9 @@ class ShopController extends Controller
                 break;
             case 'mypage':
                 $backRoute = '/mypage';
+                break;
+            case 'review':
+                $backRoute = route('review', $shop_id);
                 break;
         }
         return view('detail', compact('user', 'shop', 'review', 'avgRating', 'countFavorites', 'backRoute'));

@@ -36,7 +36,7 @@ Route::middleware(['verified'])->group(function () {
 });
 
 Route::get('/',[ShopController::class, 'getIndex']);
-Route::get('/detail/{shop_id}',[ShopController::class,'detail']);
+Route::get('/detail/{shop_id}',[ShopController::class,'detail'])->name('shopDetail');
 Route::get('/search',[ShopController::class,'search']);
 Route::post('/reserve/{shop_id}',[ShopController::class,'store'])->name('reservation');
 Route::view('/done','done');

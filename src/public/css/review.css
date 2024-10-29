@@ -35,6 +35,19 @@ main {
     margin-top: 0;
 }
 
+.header__back {
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+    text-decoration: none;
+    background-color: #fff;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+}
+
 .shop__content {
     width: 100%;
     max-width: 260px;

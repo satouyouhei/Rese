@@ -57,7 +57,7 @@
             
             <label class="reservation__title hover__color--steelblue">
                 <input type="radio" name="tab" class="reservation__title-input">
-                    飲食履歴
+                    外食履歴
             </label>
             <div class="reservation__content-wrap">
                 @foreach ($histories as $reservation)
@@ -84,7 +84,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="/review/{{ $reservation->shop->id }}?from=mypage" class="shop__button-detail">口コミを投稿する</a>
+                                        <a href="/review/{{ $reservation->shop->id }}?from=mypage" class="shop__button-detail">口コミを投稿/編集する</a>
                                 </td>
                             </tr>
                         </table>

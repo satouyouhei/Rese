@@ -131,7 +131,7 @@
         @if (Auth::check())
             @unless ($user->hasRole('admin|shop'))
                 @if (!$review)
-                    <a href="/review/{{ $shop->id }}" class="review__link">口コミを投稿する</a>
+                    <a href="/review/{{ $shop->id }}?from=detail" class="review__link">口コミを投稿する</a>
                 @endif
             @endunless
         @endif
@@ -140,7 +140,7 @@
 
         @if ($review)
                 <div class="review-button__unit">
-                    <a href="/review/{{ $shop->id }}" class="my-review__edit">口コミを編集</a>
+                    <a href="/review/{{ $shop->id }}?from=detail" class="my-review__edit">口コミを編集</a>
                     <form action="/review/delete/{{ $review->id }}" method="post" class="my-review__form">
                         @csrf
                         <button type="submit" class="my-review__delete-button"

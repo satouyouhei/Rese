@@ -7,6 +7,7 @@
 @section('content')
     <div class="review__wrap">
         <div class="review__header">
+            <a href="{{ $backRoute }}" class="header__back"><</a>
             Reviews
         </div>
 
