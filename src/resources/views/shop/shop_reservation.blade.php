@@ -77,5 +77,5 @@
             </tbody>
         </table>
     </div>
-
+    <script src="{{ asset('js/reservation.js') }}"></script>
 @endsection
