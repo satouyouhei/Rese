@@ -13,7 +13,7 @@ class Genre extends Model
         'genre'
     ];
 
-    public function shop()
+    public function shops()
     {
         return $this->hasMany(Shop::class, 'genre_id');
     }

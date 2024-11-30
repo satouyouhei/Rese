@@ -8,7 +8,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Favorite;
 use App\Models\Reservation;
-use App\Models\Shop_representatives;
+use App\Models\Shop_Representatives;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -54,7 +54,7 @@ class ManagementScreenController extends Controller
 
             $createdShop = Shop::create($shop);
 
-            $shopRepresentative = new Shop_representatives();
+            $shopRepresentative = new Shop_Representatives();
             $shopRepresentative->user_id = Auth::user()->id;
             $shopRepresentative->shop_id = $createdShop->id;
 
