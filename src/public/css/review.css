@@ -209,6 +209,28 @@ main {
     font-size: 1.2rem;
 }
 
+.input-file{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.image-area{
+    width: 180px;
+    height: 120px;
+    margin: 0 auto;
+    border: 1px solid lightgray;
+}
+
+.image-area img{
+    width: 100%;
+    height: 100%;
+}
+
 .button__content {
     position: absolute;
     left: 25%;

@@ -12,6 +12,7 @@ class Review extends Model
     protected $fillable = [
         'rating',
         'comment',
+        'image_url'
     ];
 
     public function user()

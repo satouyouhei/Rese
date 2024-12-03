@@ -43,15 +43,26 @@ class ReviewController extends Controller
         if ($review) {
             $form = $request->all();
             unset($form['_token']);
+            if($request->hasFile('image_url')){
+                $image = $request->file('image_url');
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $path = $image->storeAs('',$filename,'public');
+                $review['image_url'] = Storage::disk('public')->url($path);
+            }
 
             Review::find($review->id)->update($form);
         } else {
             $review = new Review();
             $review->user_id = $userId;
             $review->shop_id = $shop_id;
-            $review->rating = $request->input('rating');
+            $review->rating  = $request->input('rating');
             $review->comment = $request->input('comment');
-
+            if($request->hasFile('image_url')){
+                $image = $request->file('image_url');
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $path = $image->storeAs('public',$filename,'public');
+                $review['image_url'] = Storage::disk('public')->url($path);
+            }
             $review->save();
         }
 

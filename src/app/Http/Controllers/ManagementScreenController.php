@@ -8,7 +8,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Favorite;
 use App\Models\Reservation;
-use App\Models\Shop_Representatives;
+use App\Models\Shop_representatives;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -38,9 +38,10 @@ class ManagementScreenController extends Controller
             $shop = $request->except(['_token', 'image_url']);
 
             if ($request->image_url) {
-                $image = $request->image_url;
-                $path = $image->store('public');
-                $shop['image_url'] = basename(Storage::disk('public')->url($path));
+                $image = $request->file('image_url');
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $path = $image->storeAs('public',$filename,'public');
+                $shop['image_url'] = Storage::disk('public')->url($path);
             }
 
             Shop::find($shopRepresentative->shop_id)->update($shop);
@@ -48,13 +49,14 @@ class ManagementScreenController extends Controller
 
         } else {
             $shop = $request->except(['image_url']);
-            $image = $request->image_url;
-            $path = $image->store('public');
-            $shop['image_url'] = basename(Storage::disk('public')->url($path));
+            $image = $request->file('image_url');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $path = $image->storeAs('public',$filename,'public');
+            $shop['image_url'] = Storage::disk('public')->url($path);
 
             $createdShop = Shop::create($shop);
 
-            $shopRepresentative = new Shop_Representatives();
+            $shopRepresentative = new Shop_representatives();
             $shopRepresentative->user_id = Auth::user()->id;
             $shopRepresentative->shop_id = $createdShop->id;
 

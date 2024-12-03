@@ -18,7 +18,8 @@ class CreateReviewsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
             $table->integer('rating');
-            $table->string('comment');
+            $table->string('comment')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

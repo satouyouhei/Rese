@@ -97,7 +97,7 @@
             <div class="reservation__content-wrap mobile-favorite__wrap">
                 @foreach ($shops as $shop)
                     <div class="shop__content">
-                        <img class="shop__image" src="{{ asset( 'storage/'.$shop->image_url ) }}" alt="イメージ画像">
+                        <img class="shop__image" src="{{ $shop->image_url }}" alt="イメージ画像">
                         <div class="shop__item">
                             <span class="shop__title">{{ $shop->name }}</span>
                             <div class="shop__tag">
@@ -128,7 +128,7 @@
         <div class="shop__wrap">
             @foreach ($shops as $shop)
                 <div class="shop__content">
-                    <img class="shop__image" src="{{ asset( 'storage/'.$shop->image_url ) }}" alt="イメージ画像">
+                    <img class="shop__image" src="{{ $shop->image_url }}" alt="イメージ画像">
                     <div class="shop__item">
                         <span class="shop__title">{{ $shop->name }}</span>
                         <div class="shop__tag">
