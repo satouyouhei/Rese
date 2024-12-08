@@ -93,6 +93,6 @@ $ php artisan schedule:work
 ### csvファイルをインポートして作成する
 <li>管理者でログイン</li>
 <li>管理者専用ページの新規店舗追加</li>
-<li>csvファイルを作成し、選択
-（[サンプルCSVファイル](img/csv_import用-シート２.csv)）←クリック後、右上の"Download raw file"ボタンでダウンロード</li>
-4.インポートボタンをクリック
+<li>csvファイルを作成し、選択</br>
+<a href="img/csv_import用-シート２.csv">[サンプルCSVファイル]</a>←クリック後、右上の"Download raw file"ボタンでダウンロード</li>
+<li>インポートボタンをクリック</li>
