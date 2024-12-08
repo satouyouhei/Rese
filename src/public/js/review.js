@@ -10,25 +10,25 @@ document.getElementById("text-input").addEventListener("input", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    var input = document.querySelector('.input-file');
-    var imageArea = document.querySelector('.image-area');
-    var textArea = document.querySelector('.upload-text__area');
-    var img = document.querySelector('.image-area__image');
+    var input = document.querySelector(".input-file");
+    var imageArea = document.querySelector(".image-area");
+    var textArea = document.querySelector(".upload-text__area");
+    var img = document.querySelector(".image-area__image");
 
-    input.addEventListener('change', function (e) {
+    input.addEventListener("change", function (e) {
         var file = e.target.file[0];
         var reader = new FileReader();
 
         reader.onload = function (e) {
             var imageUrl = e.target.result;
-            image.src = imageUrl;
+            img.src = imageUrl;
 
-            textArea.style.display = 'none';
-            imageArea.style.display = 'block';
-        }
+            textArea.style.display = "none";
+            imageArea.style.display = "block";
+        };
         reader.readAsDataURL(file);
     });
-    if (img.getAttribute('src')) {
+    if (img.getAttribute("src")) {
         imageArea.style.display = none;
     }
 });

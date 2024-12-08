@@ -71,6 +71,7 @@ class ShopController extends Controller
 
     public function search(Request $request)
     {
+        $this->updateShopRatings();
         $shops = $this->searchShops($request);
         $areas = Area::all();
         $genres = Genre::all();
@@ -79,11 +80,21 @@ class ShopController extends Controller
         return view('index', compact('shops', 'areas', 'genres', 'favorites'));
     }
 
+    private function updateShopRatings(){
+        $shops =Shop::all();
+        foreach($shops as $shop){
+            $avgRating = $shop->reviews()->avg('rating') ?? 0;
+            $shop->avg_rating = $avgRating;
+            $shop->save();
+        }
+    }
+    
     private function searchShops(Request $request): \Illuminate\Support\Collection
     {
         $area = $request->input('area');
         $genre = $request->input('genre');
         $word = $request->input('word');
+        $sort = $request->input('sort'); 
 
         $query = Shop::with(['area', 'genre'])
             ->when($area, function ($query) use ($area) {
@@ -95,6 +106,20 @@ class ShopController extends Controller
             ->when($word, function ($query) use ($word) {
                 return $query->where('name', 'like', '%' . $word . '%');
             });
+            
+        $query ->orderByRaw('avg_rating = 0');
+            
+        switch($sort){
+            case 'random':
+                $query->inRandomOrder();
+                break;
+            case 'low_rating':
+                $query->orderBy('avg_rating','asc');
+                break;
+            case 'high_rating':
+                $query->orderBy('avg_rating','desc');
+                break;
+        }
 
         return $query->get();
     }

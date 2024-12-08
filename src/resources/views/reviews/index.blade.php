@@ -8,6 +8,7 @@
 <div class="review__wrap">
     <div class="title__wrap">
         <a href="{{ $backRoute }}" class="header__back">
+            ＞
         </a>
         <p class="title__text">今回のご利用はいかがでしたか？</p>
         <div class="shop__content">
@@ -74,10 +75,10 @@
         @enderror
         <div class="upload-area">
             <div class="image-area">
-                <img src="{{ $review->image_url ?? '' }}" class="image-area__image">
+                <img src="{{ $review->image_url ?? ''}}" class="image-area__image">
             </div>
             @if(!$review || !$review->image_url)
-            <div class=" upload-text__area">
+            <div class="upload-text__area">
                 <p class="upload-area__text">クリックして写真を追加</p>
                 <p class="upload-area__text--small">またはドロップアンドドロップ</p>
             </div>

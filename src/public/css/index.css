@@ -342,10 +342,8 @@
         content: url("../images/batsu.svg");
     }
 
-    /* アイコンがクリックされたらメニューを表示 */
     #drawer__input-search:checked~.search__content {
         top: 0;
-        /* メニューを画面に入れる */
     }
 
     .overlay {

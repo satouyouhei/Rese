@@ -52,6 +52,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
         Route::post('/register/shopRepresentative','register');
         Route::view('/register','admin.register_shopRepresentative');
         Route::view('/email_notification', 'admin.email_notification');
+        Route::view('/csv-import','admin.csvImport');
+        Route::post('/csvImport','csvImport')->name('csvImport');
     });
 });
 

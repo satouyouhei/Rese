@@ -9,6 +9,7 @@
     <div class="detail__header">
         <div class="header__title">
             <a href="{{ $backRoute }}" class="header__back">
+                ＞
             </a>
             <span class="header__shop-name">{{ $shop->name }}</span>
         </div>
@@ -28,6 +29,52 @@
     <div class="detail__outline">
         <p class="detail__outline-text">{{ $shop->outline }}</p>
     </div>
+
+    <div class="my-review__content">
+        @if (Auth::check())
+        @unless ($user->hasRole('admin|shop'))
+        @if (!$review)
+        <a href="/review/{{ $shop->id }}?from=detail" class="review__link">口コミを投稿する</a>
+        @endif
+        @endunless
+        @endif
+
+        <a href="/review/shop/{{ $shop->id }}" class="all-review__button">全ての口コミ情報</a>
+
+        @if ($review)
+        <div class="review-button__unit">
+            <a href="/review/{{ $shop->id }}?from=detail" class="my-review__edit">口コミを編集</a>
+            <form action="/review/delete/{{ $review->id }}" method="post" class="my-review__form">
+                @csrf
+                <button type="submit" class="my-review__delete-button"
+                    onclick="return confirm('本当に口コミを削除しますか？')">口コミを削除</button>
+            </form>
+        </div>
+        @if ($review->rating == 1)
+        <p class="my-review__text">非常に不満です</p>
+        @elseif ($review->rating == 2)
+        <p class="my-review__text">少し不満です</p>
+        @elseif ($review->rating == 3)
+        <p class="my-review__text">普通です</p>
+        @elseif ($review->rating == 4)
+        <p class="my-review__text">大変満足です</p>
+        @elseif ($review->rating == 5)
+        <p class="my-review__text">非常に満足です</p>
+        @endif
+
+        <span class="rating__star rating__star--small" data-rate="{{ number_format($review->rating, 1) }}"></span>
+        <span class="rating__number">{{ number_format($review->rating, 1) }}</span>
+        <p class="review__comment">{{ $review->comment }}</p>
+        @if($review->image_url)
+        <div class="my-review__image-area">
+            <a href="{{ $review->image_url }}">
+                <img src="{{ $review->image_url }}" alt="" class="my-review__image">
+            </a>
+        </div>
+        @endif
+    </div>
+    @endif
+</div>
 </div>
 
 <form action="{{ request()->is('*edit*') ? route('reservation.update', $reservation) : route('reservation', $shop) }}"
@@ -39,12 +86,6 @@
         <div class="form__content">
             <input type="date" id="datePicker" class="form__item" name="date"
                 value="{{ request()->is('*edit*') ? $reservation->date : '' }}">
-            <script>
-            window.onload = function() {
-                var today = new Date().toISOString().split('T')[0];
-                document.getElementById("datePicker").setAttribute('min', today);
-            };
-            </script>
             <div class="error__item">
                 @error('date')
                 <span class="error__message">{{ $message }}</span>
@@ -125,52 +166,4 @@
 </form>
 <script src="{{ asset('js/detail.js') }}"></script>
 <script src="{{ asset('js/reservation.js') }}"></script>
-@endsection
-
-@section('footer')
-<div class="my-review__content">
-    @if (Auth::check())
-    @unless ($user->hasRole('admin|shop'))
-    @if (!$review)
-    <a href="/review/{{ $shop->id }}?from=detail" class="review__link">口コミを投稿する</a>
-    @endif
-    @endunless
-    @endif
-
-    <a href="/review/shop/{{ $shop->id }}" class="all-review__button">全ての口コミ情報</a>
-
-    @if ($review)
-    <div class="review-button__unit">
-        <a href="/review/{{ $shop->id }}?from=detail" class="my-review__edit">口コミを編集</a>
-        <form action="/review/delete/{{ $review->id }}" method="post" class="my-review__form">
-            @csrf
-            <button type="submit" class="my-review__delete-button"
-                onclick="return confirm('本当に口コミを削除しますか？')">口コミを削除</button>
-        </form>
-    </div>
-    @if ($review->rating == 1)
-    <p class="my-review__text">非常に不満です</p>
-    @elseif ($review->rating == 2)
-    <p class="my-review__text">少し不満です</p>
-    @elseif ($review->rating == 3)
-    <p class="my-review__text">普通です</p>
-    @elseif ($review->rating == 4)
-    <p class="my-review__text">大変満足です</p>
-    @elseif ($review->rating == 5)
-    <p class="my-review__text">非常に満足です</p>
-    @endif
-
-    <span class="rating__star rating__star--small" data-rate="{{ number_format($review->rating, 1) }}"></span>
-    <span class="rating__number">{{ number_format($review->rating, 1) }}</span>
-    <p class="review__comment">{{ $review->comment }}</p>
-    @if($review->image_url)
-    <div class="my-review__image-area">
-        <a href="{{ $review->image_url }}">
-            <img src="{{ $review->image_url }}" alt="" class="my-review__image">
-        </a>
-    </div>
-    @endif
-</div>
-@endif
-</div>
 @endsection

@@ -30,3 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
     star.style.setProperty('--star-width', `${width}%`);
     });
 });
+
+
+window.onload = function () {
+    var today = new Date().toISOString().split("T")[0];
+    document.getElementById("datePicker").setAttribute("min", today);
+};

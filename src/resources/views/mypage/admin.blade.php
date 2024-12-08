@@ -7,5 +7,8 @@
         <li class="admin-nav__list">
             <a href="/admin/register" class="admin-nav__link">店舗代表者作成</a>
         </li>
+        <li class="admin-nav__list">
+            <a href="/admin/csv-import" class="admin-nav__link">新規店舗追加</a>
+        </li>
     </ul>
 </nav>
