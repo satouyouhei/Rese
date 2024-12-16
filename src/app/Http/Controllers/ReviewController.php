@@ -45,12 +45,14 @@ class ReviewController extends Controller
             unset($form['_token']);
             if($request->hasFile('image_url')){
                 $image = $request->file('image_url');
-                $filename = time() . '_' . $image->getClientOriginalName();
-                $path = $image->storeAs('',$filename,'public');
+                $filename = time() . '_' .$image->getClientOriginalName();
+                $path = $image->storeAs('public',$filename,'public');
                 $review['image_url'] = Storage::disk('public')->url($path);
             }
+            $review->rating  = $request->input('rating');
+            $review->comment = $request->input('comment');
+            $review->save();
 
-            Review::find($review->id)->update($form);
         } else {
             $review = new Review();
             $review->user_id = $userId;
@@ -64,6 +66,7 @@ class ReviewController extends Controller
                 $review['image_url'] = Storage::disk('public')->url($path);
             }
             $review->save();
+            
         }
 
         return view('reviews.thanks', compact('shop_id'));

@@ -74,23 +74,49 @@
         <p class="error_message">{{ $message }}</p>
         @enderror
         <div class="upload-area">
-            <div class="image-area">
-                <img src="{{ $review->image_url ?? ''}}" class="image-area__image">
-            </div>
             @if(!$review || !$review->image_url)
             <div class="upload-text__area">
                 <p class="upload-area__text">クリックして写真を追加</p>
                 <p class="upload-area__text--small">またはドロップアンドドロップ</p>
             </div>
             @endif
+            <div class="image-area">
+                <img src="{{ $review->image_url ?? '' }}" class="image-area__image">
+            </div>
             <input type="file" name="image_url" class="input-file" accept=".jpeg,.png">
         </div>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var input = document.querySelector('.input-file');
+            var imageArea = document.querySelector('.image-area');
+            var textArea = document.querySelector('.upload-text__area');
+            var image = document.querySelector('.image-area__image');
 
-        <div class="button__content">
+            input.addEventListener('change', function(e) {
+                var file = e.target.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var imageUrl = e.target.result;
+                    image.src = imageUrl;
+
+                    textArea.style.display = 'none';
+                    imageArea.style.display = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            });
+
+            if (!image.getAttribute('src')) {
+                imageArea.style.display = 'none';
+            }
+        });
+        </script>
+        <div class=" button__content">
             @if ($review)
             <button type="submit" class="review__button">口コミを編集</button>
             @else
-            <button type="submit" class="review__button">口コミを投稿</button>
+            <button type=" submit" class="review__button">口コミを投稿</button>
             @endif
         </div>
     </form>

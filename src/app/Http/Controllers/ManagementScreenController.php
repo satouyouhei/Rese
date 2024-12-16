@@ -52,7 +52,7 @@ class ManagementScreenController extends Controller
             $image = $request->file('image_url');
             $filename = time() . '_' . $image->getClientOriginalName();
             $path = $image->storeAs('public',$filename,'public');
-            $shop['image_url'] = Storage::disk('public')->url($path);
+            $shop['image_url'] = Storage::disk()->url($path);
 
             $createdShop = Shop::create($shop);
 
