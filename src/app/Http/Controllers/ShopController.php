@@ -50,7 +50,7 @@ class ShopController extends Controller
                 $backRoute = route('review', $shop_id);
                 break;
         }
-        return view('detail', compact('user', 'shop', 'review', 'avgRating', 'countFavorites', 'backRoute'));
+        return view('detail',compact('user', 'shop', 'review', 'avgRating', 'countFavorites', 'backRoute'));
     }
 
     public function store(ReservationRequest $request)
